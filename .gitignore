@@ -46,3 +46,6 @@ _deps
 
 # Mac Specific
 .DS_Store
+
+# VSCode Specific
+.vscode
