@@ -13,6 +13,6 @@ int main(int argc, char** argv){
     {
         rams::Resource<int> yint("Baba");
     }
-    std::cout << mint() << std::endl;
+    std::cout << &mint() << std::endl;
     return EXIT_SUCCESS;
 }
