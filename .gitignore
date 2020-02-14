@@ -49,3 +49,8 @@ _deps
 
 # VSCode Specific
 .vscode
+
+# build specific
+cmake-build-debug
+cmake-build-prod
+cmake-build-opt
