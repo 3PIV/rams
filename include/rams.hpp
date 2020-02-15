@@ -19,6 +19,7 @@ template <typename Type> struct Tracker {
 template <typename Type> class ResourceHandler {
 public:
   static ResourceHandler *gInstance;
+  template <class T> friend class Resource;
 
   /**
    * @brief Get the Instance object for the Singleton
@@ -31,6 +32,27 @@ public:
     }
     return gInstance;
   }
+
+private:
+  /**
+   * @brief Construct a new Resource Handler object
+   *
+   * Private Due to Singleton Pattern
+   */
+  ResourceHandler() {}
+  /**
+   * @brief Construct a new Resource Handler object
+   *
+   * Private Due to Singleton Pattern
+   */
+  ResourceHandler(const ResourceHandler &) {}
+  /**
+   * @brief Assign a value from an rvalue ResourceHandler
+   *
+   * Private Due to Singleton Pattern
+   * @return ResourceHandler&
+   */
+  ResourceHandler &operator=(const ResourceHandler) {}
 
   /**
    * @brief acquire allocates or increments a reference to memory and attributes
@@ -109,27 +131,6 @@ public:
     }
   }
 
-private:
-  /**
-   * @brief Construct a new Resource Handler object
-   *
-   * Private Due to Singleton Pattern
-   */
-  ResourceHandler() {}
-  /**
-   * @brief Construct a new Resource Handler object
-   *
-   * Private Due to Singleton Pattern
-   */
-  ResourceHandler(const ResourceHandler &) {}
-  /**
-   * @brief Assign a value from an rvalue ResourceHandler
-   *
-   * Private Due to Singleton Pattern
-   * @return ResourceHandler&
-   */
-  ResourceHandler &operator=(const ResourceHandler) {}
-
   /**
    * @brief Default load method for new allocation, can be specialized
    *
@@ -200,17 +201,6 @@ public:
    * @return const Type&
    */
   const Type &data() const { return *mData; }
-
-  /**
-   * @brief Set value of underlying data by deleting memory and pointing to new
-   * memory
-   *
-   * @param newData New memory to set pointer to.
-   */
-  void set(Type *newData) {
-    delete mData;
-    mData = newData;
-  }
 
   /**
    * @brief Set value of underlying data by assigning a new value to what the
